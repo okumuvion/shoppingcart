@@ -1,7 +1,7 @@
 # CodeIgniter4 Shopping Cart
 
 Ported from https://github.com/Crinsane/LaravelShoppingcart for CodeIgniter4
-
+[![Latest Stable Version](https://poser.pugx.org/okumuvion/shoppingcart/v/stable)](https://packagist.org/packages/okumuvion/shoppingcart)
 [![Latest Stable Version]([https://poser.pugx.org/okumuvion/shoppingcart/v])]
 [![Total Downloads](https://poser.pugx.org/okumuvion/shoppingcart/v)](https://packagist.org/packages/eddieodira/shoppingcart)
 [![Total Downloads](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/downloads)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
