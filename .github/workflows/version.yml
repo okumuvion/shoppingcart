@@ -1,0 +1,61 @@
+name: Automated Version Bump
+
+on:
+  push:
+    branches:
+      - main # Or your default branch name (e.g., master)
+
+jobs:
+  version_bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for the action to commit and push changes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch-depth 0 is required to analyze all commits
+
+      - name: Automated Version Bump
+        id: bump
+        uses: phips28/gh-action-bump-version@master
+        with:
+          # Optionally configure the bump policy, commit message, etc.
+          # For example, to skip additional CI runs after the bump:
+          commit-message: 'CI: bumps version to {{version}} [skip ci]'
+          target-branch: 'main' # Or your default branch name
+
+      - name: Update composer.json with new version
+        run: |
+          # Use a tool like 'jq' (pre-installed on GitHub Actions runners) to update the version in composer.json
+          jq --version
+          CURRENT_VERSION=$(jq -r '.version' composer.json)
+          NEW_VERSION=${{ steps.bump.outputs.newTag }}
+          # Remove 'v' prefix if present from newTag for composer.json
+          NEW_VERSION_NO_V=$(echo "$NEW_VERSION" | sed 's/^v//')
+          echo "Current Version: $CURRENT_VERSION, New Version: $NEW_VERSION_NO_V"
+
+          # Only update if the version has actually changed
+          if [ "$CURRENT_VERSION" != "$NEW_VERSION_NO_V" ]; then
+            jq '.version = env.NEW_VERSION_NO_V' composer.json > composer.json.tmp && mv composer.json.tmp composer.json
+          else
+            echo "Version has not changed, skipping composer.json update."
+          fi
+        env:
+          # Pass the new version to the script as an environment variable
+          NEW_VERSION_NO_V: ${{ steps.bump.outputs.newTag }}
+
+      - name: Commit composer.json change
+        # Only run this step if the previous step actually modified the file
+        if: success() && steps.bump.outputs.newTag != '' # Simple check, refine as needed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'CI: Update composer.json version to ${{ steps.bump.outputs.newTag }} [skip ci]'
+          files: composer.json
+          
+      - name: Push new tag
+        # The bump action automatically creates a tag and pushes it if a new version is determined.
+        # You may need to manually push tags if using a different action, but the 'phips28/gh-action-bump-version'
+        # handles both commit and tag push with the appropriate permissions.
+        run: echo "Tag v${{ steps.bump.outputs.newVersion }} should be pushed by the bump action itself."
