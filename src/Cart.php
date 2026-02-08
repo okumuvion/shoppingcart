@@ -8,6 +8,7 @@ use CodeIgniter\I18n\Time;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Config\Services;
 use Illuminate\Support\Collection;
+use CodeIgniter\Settings\Settings;
 use Eddieodira\Shoppingcart\Models\CartModel;
 use Eddieodira\Shoppingcart\Contracts\Buyable;
 use Eddieodira\Shoppingcart\Exceptions\InvalidRowIDException;
@@ -480,7 +481,8 @@ class Cart
         if (isset($taxrate) && is_numeric($taxrate)) {
             $cartItem->setTaxRate($taxrate);
         } else {
-            $cartItem->setTaxRate(setting('Cart.taxRate'));
+            $tax = Settings::get('Cart.taxRate');
+            $cartItem->setTaxRate($tax);
         }
 
         return $cartItem;
