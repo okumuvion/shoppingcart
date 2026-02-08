@@ -17,6 +17,19 @@ Run the Composer require command from the Terminal:
 
     composer require eddieodira/shoppingcart
 
+### Configuration
+To save cart into the database so you can retrieve it later, the package needs to know which database connection to use and what the name of the table is.
+By default the package will use the default database connection and use a table named `cart`.
+If you want to change these options, you'll have to publish the `config` file. From v1.1.0 run a unified command:
+
+
+    php spark cart:publish
+
+👉 This update makes it clear to users that starting from **v1.1.0**, they only need to run **one command** (`php spark cart:publish`) to set up everything. It gives you a `Cart.php` config file in app/Config directory in which you can make the changes and run the 
+
+					php spark migrate -all
+
+
 Now you're ready to enjoy the codeigniter4 shoppingcart in your application. Enjoy Coding!
 
 ## Overview
@@ -347,24 +360,9 @@ foreach(Cart::content() as $row) {
 }
 ```
 ## Database
-
-- [Config](#configuration)
 - [Storing the cart](#save-cart-to-database)
 - [Restoring the cart](#retrieve-cart-from-database)
-
-### Configuration
-To save cart into the database so you can retrieve it later, the package needs to know which database connection to use and what the name of the table is.
-By default the package will use the default database connection and use a table named `cart`.
-If you want to change these options, you'll have to publish the `config` file.
-
-    php spark cart:publish
-
-This will give you a `Cart.php` config file in which you can make the changes.
-
-To make your life easy, the package also includes a ready to use `migration` which you can publish by running:
-
-    php spark migrate -all
-
+  
 ### Storing the cart    
 To store your cart instance into the database, you have to call the `store($identifier) ` method. Where `$identifier` is a random key, for instance the id or username of the user.
 ```php
