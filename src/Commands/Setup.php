@@ -4,6 +4,7 @@ namespace Eddieodira\Shoppingcart\Commands;
 
 use Config\Services;
 use CodeIgniter\CLI\CLI;
+use Config\Autoload as AutoloadConfig;
 use CodeIgniter\Commands\Database\Migrate;
 use CodeIgniter\Test\Filters\CITestStreamFilter;
 use Eddieodira\Shoppingcart\Commands\Setup\ContentReplacer;
@@ -38,6 +39,7 @@ class Setup extends BaseCommand
     private function publishConfig(): void
     {
         $this->publishCartConfig();
+        $this->setAutoloadHelpers();
         $this->runMigrations();
     }
 
@@ -162,6 +164,67 @@ class Setup extends BaseCommand
         $this->write($output);
 
         CITestStreamFilter::$buffer = '';
+    }
+
+    private function setAutoloadHelpers(): void
+    {
+        $file = 'Config/Autoload.php';
+
+        $path      = $this->distPath . $file;
+        $cleanPath = clean_path($path);
+
+        $config     = new AutoloadConfig();
+        $helpers    = $config->helpers;
+        $newHelpers = array_unique(array_merge($helpers, ['setting']));
+
+        $content = file_get_contents($path);
+        $output  = $this->updateAutoloadHelpers($content, $newHelpers);
+
+        // check if the content is updated
+        if ($output === $content) {
+            $this->write(CLI::color('  Autoload Setup: ', 'green') . 'Everything is fine.');
+
+            return;
+        }
+
+        if (write_file($path, $output)) {
+            $this->write(CLI::color('  Updated: ', 'green') . $cleanPath);
+
+            $this->removeHelperLoadingInBaseController();
+        } else {
+            $this->error("  Error updating file '{$cleanPath}'.");
+        }
+    }
+
+    /**
+     * @param string       $content    The content of Config\Autoload.
+     * @param list<string> $newHelpers The list of helpers.
+     */
+    private function updateAutoloadHelpers(string $content, array $newHelpers): string
+    {
+        $pattern = '/^    public \$helpers = \[.*?\];/msu';
+        $replace = '    public $helpers = [\'' . implode("', '", $newHelpers) . '\'];';
+
+        return preg_replace($pattern, $replace, $content);
+    }
+
+    private function removeHelperLoadingInBaseController(): void
+    {
+        $file = 'Controllers/BaseController.php';
+
+        $check = '        $this->helpers = array_merge($this->helpers, [\'setting\']);';
+
+        // Replace old helper setup
+        $replaces = [
+            '$this->helpers = array_merge($this->helpers, [\'setting\']);' => $check,
+        ];
+        $this->replace($file, $replaces);
+
+        // Remove helper setup
+        $replaces = [
+            "\n" . $check . "\n" => '',
+        ];
+        $this->replace($file, $replaces);
     }
 }
 
