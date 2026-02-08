@@ -25,9 +25,7 @@ If you want to change these options, you'll have to publish the `config` file. F
 
     php spark cart:publish
 
-👉 This update makes it clear to users that starting from **v1.1.4**, they only need to run **one command** (`php spark cart:publish`) to set up everything. It gives you a `Cart.php` config file in app/Config directory in which you can make the changes and run the 
-
-					php spark migrate -all 
+👉 This update makes it clear to users that starting from **v1.1.4**, they only need to run **one command** (`php spark cart:publish`) to set up everything.
 
 Now you're ready to enjoy the codeigniter4 shoppingcart in your application. Enjoy Coding!
 
