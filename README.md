@@ -2,12 +2,7 @@
 
 Ported from https://github.com/Crinsane/LaravelShoppingcart for CodeIgniter4
 
-[![Latest Stable Version](https://poser.pugx.org/okumuvion/shoppingcart/v/stable)](https://packagist.org/packages/okumuvion/shoppingcart)
-[![Latest Stable Version]([https://poser.pugx.org/okumuvion/shoppingcart/v])]
-[![Total Downloads](https://poser.pugx.org/okumuvion/shoppingcart/v)](https://packagist.org/packages/eddieodira/shoppingcart)
-[![Total Downloads](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/downloads)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
-[![Latest Unstable Version](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/v/unstable)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
-[![License](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/license)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
+[![Latest Stable Version](http://poser.pugx.org/eddieodira/shoppingcart/v)](https://packagist.org/packages/eddieodira/shoppingcart) [![Total Downloads](http://poser.pugx.org/eddieodira/shoppingcart/downloads)](https://packagist.org/packages/eddieodira/shoppingcart) [![Latest Unstable Version](http://poser.pugx.org/eddieodira/shoppingcart/v/unstable)](https://packagist.org/packages/eddieodira/shoppingcart) [![License](http://poser.pugx.org/eddieodira/shoppingcart/license)](https://packagist.org/packages/eddieodira/shoppingcart) [![PHP Version Require](http://poser.pugx.org/eddieodira/shoppingcart/require/php)](https://packagist.org/packages/eddieodira/shoppingcart)
 
 A simple shoppingcart implementation for CodeIgniter4.
 
