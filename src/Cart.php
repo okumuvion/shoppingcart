@@ -481,8 +481,7 @@ class Cart
         if (isset($taxrate) && is_numeric($taxrate)) {
             $cartItem->setTaxRate($taxrate);
         } else {
-            $tax = Settings::get('Cart.taxRate');
-            $cartItem->setTaxRate($tax);
+            $cartItem->setTaxRate(setting('Cart.taxRate'));
         }
 
         return $cartItem;

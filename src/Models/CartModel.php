@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Eddieodira\Shoppingcart\Models;
 
 use CodeIgniter\Model;
-use CodeIgniter\Settings\Settings;
 
 class CartModel extends Model
 {
@@ -26,6 +25,6 @@ class CartModel extends Model
     {
         parent::__construct();
         
-        $this->table = Settings::get('Cart.table') ?? 'cart';
+        $this->table = setting('Cart.table') ?? 'cart';
     }
 }
