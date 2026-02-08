@@ -25,6 +25,6 @@ class CartModel extends Model
     {
         parent::__construct();
         
-        $this->table = config('Cart')->table ?? 'cart';
+        $this->table = setting('Cart.table') ?? 'cart';
     }
 }

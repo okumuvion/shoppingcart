@@ -12,7 +12,7 @@ class Cart extends BaseConfig
      * This default tax rate will be used when you make a class implement the
      * taxable interface and use the HasTax trait.
      */
-    public int $tax = 16;
+    public int $taxRate = 16;
 
     /**
      * Here you can set the connection that the shoppingcart should use when

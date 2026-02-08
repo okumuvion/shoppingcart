@@ -480,7 +480,7 @@ class Cart
         if (isset($taxrate) && is_numeric($taxrate)) {
             $cartItem->setTaxRate($taxrate);
         } else {
-            $cartItem->setTaxRate(config('Cart')->tax);
+            $cartItem->setTaxRate(setting('Cart.taxRate'));
         }
 
         return $cartItem;

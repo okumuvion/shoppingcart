@@ -405,17 +405,17 @@ class CartItem implements Arrayable, Jsonable
      */
     public static function numberFormat(float $value, ?int $dPlace = null, ?string $dPoint = null, ?string $nSeparator = null): string
     {
-        $config = config('Cart');
+        $format = setting('Cart.format');
         if (is_null($dPlace)) {
-            $dPlace = $config->format['decimal_places'] ?? 2;
+            $dPlace = $format['decimal_places'] ?? 2;
         }
 
         if (is_null($dPoint)) {
-            $dPoint = $config->format['decimal_point'] ?? '.';
+            $dPoint = $format['decimal_point'] ?? '.';
         }
 
         if (is_null($nSeparator)) {
-            $nSeparator = $config->format['number_separator'] ?? ',';
+            $nSeparator = $format['number_separator'] ?? ',';
         }
 
         return number_format($value, $dPlace, $dPoint, $nSeparator);
