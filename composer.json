@@ -2,7 +2,10 @@
     "name": "eddieodira/shoppingcart",
     "description": "Codeigniter4 Shopping Cart Library",
     "type": "library",
+    "version": "1.1.0",
     "require": {
+        "codeigniter4/framework": "^4.5",
+        "codeigniter4/settings": "^2.0",
         "illuminate/support": "^12.16",
         "php": "^8.3"
     },
