@@ -17,12 +17,6 @@ Run the Composer require command from the Terminal:
 
     composer require eddieodira/shoppingcart
 
-## Database
-
-- [Config](#configuration)
-- [Storing the cart](#save-cart-to-database)
-- [Restoring the cart](#retrieve-cart-from-database)
-
 ### Configuration
 To save cart into the database so you can retrieve it later, the package needs to know which database connection to use and what the name of the table is.
 By default the package will use the default database connection and use a table named `cart`.
@@ -365,6 +359,10 @@ foreach(Cart::content() as $row) {
 	echo 'You have ' . $row->qty . ' items of ' . $row->model->name . ' with description: "' . $row->model->description . '" in your cart.';
 }
 ```
+## Database
+- [Storing the cart](#save-cart-to-database)
+- [Restoring the cart](#retrieve-cart-from-database)
+  
 ### Storing the cart    
 To store your cart instance into the database, you have to call the `store($identifier) ` method. Where `$identifier` is a random key, for instance the id or username of the user.
 ```php
