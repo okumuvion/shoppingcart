@@ -207,7 +207,7 @@ class CartItem implements Arrayable, Jsonable
         $this->id = $item->getBuyableIdentifier($this->options);
         $this->name = $item->getBuyableDescription($this->options);
         $this->price = $item->getBuyablePrice($this->options);
-        $this->rowTotal = $this->price + $this->tax;
+        $this->rowTotal = $this->price;
     }
 
     /**
@@ -292,7 +292,7 @@ class CartItem implements Arrayable, Jsonable
         }
 
         if ($attribute === 'tax') {
-            return number_format(($this->price * ($this->taxRate / 100)), 2, '.', '');
+            return number_format(($this->price * ($this->taxRate / 100)), 4, '.', '');
         }
 
         if ($attribute === 'taxTotal') {
